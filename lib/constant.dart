@@ -1,0 +1,12 @@
+import 'package:flutter/material.dart';
+const dVert = Color(0xff017286);
+const dvert = Color (0xFF7AB6C1);
+const bleu = Color(0xff5EA6B3);
+const blanc = Color(0xffffffff);
+const orange = Color(0xfffc7207);
+const clair= Color(0xffeff7f9);
+const fonce=Color(0xff97c5cd);
+const bleuclick=Color(0xff017286);
+const shadow=Color(0xff0172867d);
+const retour=Color(0xff1E1E1E);
+const String google_api_key='AIzaSyCSO_-q0y1LpXVzxNgijtiF-aRIXnD5nAg';
