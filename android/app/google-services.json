@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1037091360507",
+    "project_id": "afed-ddfee",
+    "storage_bucket": "afed-ddfee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037091360507:android:d53be4e394f193a2d76a5e",
+        "android_client_info": {
+          "package_name": "com.example.afed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037091360507-rnks67aadj3ftahbmv3upiqscu61bb8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOi4Ny4qf5SswSRWCBYL2JPcIYmQ7zbM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037091360507-rnks67aadj3ftahbmv3upiqscu61bb8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

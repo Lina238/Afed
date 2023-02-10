@@ -9,9 +9,17 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'ajouterannonce.dart';
 import 'constant.dart';
 import 'mesobjetsperdus.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'contactus.dart';
 import 'mesobjetstrouves.dart';
-void main() => runApp(MyApp());
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,15 +37,13 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:
-      AnimatedSplashScreen(
-        splashTransition:SplashTransition.fadeTransition,
-      splash:   Image.asset('assets/page-1/images/fichier-1090639-1.png'),
-      nextScreen: Sinscrire(),
-     backgroundColor: blanc,
-        splashIconSize:150,
-
-     ),
+      home: AnimatedSplashScreen(
+        splashTransition: SplashTransition.fadeTransition,
+        splash: Image.asset('assets/page-1/images/fichier-1090639-1.png'),
+        nextScreen: Sinscrire(),
+        backgroundColor: blanc,
+        splashIconSize: 150,
+      ),
     );
   }
 }
