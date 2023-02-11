@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:afed/utils.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'constant.dart';
 import 'home-4.dart';
 import 'sinscrire.dart';
@@ -11,6 +12,7 @@ import 'mesobjetsperdus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Seconnecter extends StatefulWidget {
   const Seconnecter({Key? key}) : super(key: key);
@@ -62,6 +64,27 @@ class _SeconnecterState extends State<Seconnecter> {
             }
           })
         });
+  }
+
+  Future<void> GoogleSign() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final googleAccount = await _googleSignIn.signIn();
+    bool _isloading = false;
+    if (googleAccount != null) {
+      final googleAuth = await googleAccount.authentication;
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        try {
+          await FirebaseAuth.instance.signInWithCredential(
+              GoogleAuthProvider.credential(
+                  accessToken: googleAuth.accessToken,
+                  idToken: googleAuth.idToken));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => home()));
+        } on FirebaseAuthException catch (e) {
+        } catch (e) {
+        } finally {}
+      }
+    }
   }
 
   @override
@@ -206,7 +229,40 @@ class _SeconnecterState extends State<Seconnecter> {
                         ),
                       ),
                       SizedBox(
-                        height: 160 * fem,
+                        child: RichText(
+                          text: TextSpan(
+                            style: SafeGoogleFont(
+                              'Poppins',
+                              fontSize: 13 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.372000034 * ffem / fem,
+                              letterSpacing: 0.78 * fem,
+                              color: Color(0xff017286),
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "vous avez oublier le mot de passe? ",
+                                style: SafeGoogleFont(
+                                  'Poppins',
+                                  fontSize: 13 * ffem,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.372000034 * ffem / fem,
+                                  letterSpacing: 0.78 * fem,
+                                  color: Color(0xff000000),
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => Sinscrire()));
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 120 * fem,
                       ),
                       Container(
                           width: 191 * fem,
@@ -254,6 +310,66 @@ class _SeconnecterState extends State<Seconnecter> {
                                         letterSpacing: 1.08 * fem,
                                         color: bleuclick,
                                       ),
+                                    ),
+                                  )),
+                                ),
+                              ))),
+                      Container(
+                          width: 300 * fem,
+                          height: 39 * fem,
+                          margin: EdgeInsets.only(top: 20 * fem),
+                          decoration: BoxDecoration(
+                            color: Color(0xffeff7f9),
+                            borderRadius: BorderRadius.circular(10 * fem),
+                          ),
+                          child: Material(
+                              borderRadius: BorderRadius.circular(10 * fem),
+                              color: Colors.transparent,
+                              child: InkWell(
+                                hoverColor: clair,
+                                customBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10 * fem),
+                                ),
+                                highlightColor: bleu,
+                                focusColor: bleu,
+                                splashColor: fonce,
+                                onTap: () {
+                                  GoogleSign();
+                                },
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color(0xff017286), width: 1.5),
+                                      borderRadius:
+                                          BorderRadius.circular(10 * fem),
+                                      color: Color(0xffeff7f9)),
+                                  child: Center(
+                                      child: Center(
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Image.asset(
+                                            width: 25 * fem,
+                                            height: 25 * fem,
+                                            'assets/page-1/images/2.png'),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          'connexion par google',
+                                          textAlign: TextAlign.center,
+                                          style: SafeGoogleFont(
+                                            'Poppins',
+                                            fontSize: 18 * ffem,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1.1568749746 * ffem / fem,
+                                            letterSpacing: 1.08 * fem,
+                                            color: bleuclick,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   )),
                                 ),

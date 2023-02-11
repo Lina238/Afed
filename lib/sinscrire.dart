@@ -35,7 +35,7 @@ class _SinscrireState extends State<Sinscrire> {
       password: passc.text.trim(),
     );
 
-    users
+    await users
         .add({'Username': namec.text.trim(), 'email': emailc.text.trim()})
         .then((value) => {
               print("User Added"),
