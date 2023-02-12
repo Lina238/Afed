@@ -13,44 +13,17 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Sinscrire extends StatefulWidget {
-  const Sinscrire({Key? key}) : super(key: key);
+class RestPass extends StatefulWidget {
+  const RestPass({Key? key}) : super(key: key);
 
   @override
-  State<Sinscrire> createState() => _SinscrireState();
+  State<RestPass> createState() => _RestPassState();
 }
 
-class _SinscrireState extends State<Sinscrire> {
-  bool pass = true;
-  bool pass1 = true;
-
+class _RestPassState extends State<RestPass> {
   final emailc = TextEditingController();
-  final passc = TextEditingController();
-  final passc1 = TextEditingController();
-  final namec = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-  Future SignUp() async {
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailc.text.trim(),
-      password: passc.text.trim(),
-    );
 
-    await users
-        .add({'Username': namec.text.trim(), 'email': emailc.text.trim()})
-        .then((value) => {
-              Fluttertoast.showToast(
-                  msg: "Bienvenue" + namec.text.trim() + ':)',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  textColor: Colors.white,
-                  fontSize: 16.0),
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Seconnecter()))
-            })
-        .catchError((error) => print("Failed to add user: $error"));
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +65,7 @@ class _SinscrireState extends State<Sinscrire> {
                       margin: EdgeInsets.fromLTRB(
                           0 * fem, 20 * fem, 5.01 * fem, 10 * fem),
                       child: Text(
-                        "S'inscrire",
+                        "réinitialiser le mot de passe",
                         style: SafeGoogleFont(
                           'Ubuntu',
                           fontSize: 28 * ffem,
@@ -103,47 +76,6 @@ class _SinscrireState extends State<Sinscrire> {
                       ),
                     ),
                     Column(children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 10, bottom: 10, right: 50, left: 50),
-                        child: TextFormField(
-                          controller: namec,
-                          validator: (value) {
-                            if (value!.isEmpty || namec.text.length < 6) {
-                              return "Entez correctement le nom";
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            disabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            focusedErrorBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            errorBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            errorStyle: SafeGoogleFont(
-                              'Poppins',
-                              fontSize: 13 * ffem,
-                              fontWeight: FontWeight.w500,
-                              height: 1.372000034 * ffem / fem,
-                              letterSpacing: 0.78 * fem,
-                              color: Color(0xfffc7207),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                                //
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            hintText: 'nom utilisateur',
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsets.only(
                             top: 10, bottom: 10, right: 50, left: 50),
@@ -189,123 +121,6 @@ class _SinscrireState extends State<Sinscrire> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 10, bottom: 10, right: 50, left: 50),
-                        child: TextFormField(
-                          controller: passc1,
-                          keyboardType: TextInputType.visiblePassword,
-                          validator: (value) {
-                            if (value!.trim().isEmpty ||
-                                passc1.text.length < 6) {
-                              return 'entrez le mot de passe correctement';
-                            }
-                            return null;
-                          },
-                          obscureText: pass1,
-                          decoration: InputDecoration(
-                            focusedErrorBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            errorBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            errorStyle: SafeGoogleFont(
-                              'Poppins',
-                              fontSize: 13 * ffem,
-                              fontWeight: FontWeight.w500,
-                              height: 1.372000034 * ffem / fem,
-                              letterSpacing: 0.78 * fem,
-                              color: Color(0xfffc7207),
-                            ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (pass1) {
-                                      pass1 = false;
-                                    } else {
-                                      pass1 = true;
-                                    }
-                                  });
-                                },
-                                icon: pass1 == true
-                                    ? Icon(Icons.remove_red_eye_outlined)
-                                    : ImageIcon(
-                                        AssetImage(
-                                            "assets/page-1/images/eye-slash-regular-2.png"),
-                                        color: bleuclick,
-                                        size: 24,
-                                      )),
-                            disabledBorder: UnderlineInputBorder(
-                                //
-                                borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xfffc7207),
-                            )),
-                            enabledBorder: UnderlineInputBorder(
-                                //
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            hintText: 'mot de passe',
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 10, bottom: 10, right: 50, left: 50),
-                        child: TextFormField(
-                          controller: passc,
-                          keyboardType: TextInputType.visiblePassword,
-                          validator: (value) {
-                            if (value!.trim().isEmpty ||
-                                passc.text.length < 6 ||
-                                passc.text != passc1.text) {
-                              return 'entrez le mot de passe correctement';
-                            }
-                            return null;
-                          },
-                          obscureText: pass,
-                          decoration: InputDecoration(
-                            focusedErrorBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            errorBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            errorStyle: SafeGoogleFont(
-                              'Poppins',
-                              fontSize: 13 * ffem,
-                              fontWeight: FontWeight.w500,
-                              height: 1.372000034 * ffem / fem,
-                              letterSpacing: 0.78 * fem,
-                              color: Color(0xfffc7207),
-                            ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (pass) {
-                                      pass = false;
-                                    } else {
-                                      pass = true;
-                                    }
-                                  });
-                                },
-                                icon: pass == true
-                                    ? Icon(Icons.remove_red_eye_outlined)
-                                    : ImageIcon(
-                                        AssetImage(
-                                            "assets/page-1/images/eye-slash-regular-2.png"),
-                                        color: bleuclick,
-                                        size: 24,
-                                      )),
-                            enabledBorder: UnderlineInputBorder(
-                                //
-                                borderSide:
-                                    BorderSide(width: 2, color: bleuclick)),
-                            hintText: 'mot de passe',
-                          ),
-                        ),
-                      ),
                       SizedBox(
                         height: 35 * fem,
                       ),
@@ -329,12 +144,9 @@ class _SinscrireState extends State<Sinscrire> {
                                 splashColor: fonce,
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
-                                    SignUp();
+                                    ResetPassword(emailc.text.trim(), context);
                                   } else {
-                                    namec.clear();
                                     emailc.clear();
-                                    passc.clear();
-                                    passc1.clear();
                                   }
                                 },
                                 child: Ink(
@@ -347,7 +159,7 @@ class _SinscrireState extends State<Sinscrire> {
                                   child: Center(
                                       child: Center(
                                     child: Text(
-                                      'inscription',
+                                      'réinitialisation',
                                       textAlign: TextAlign.center,
                                       style: SafeGoogleFont(
                                         'Poppins',
@@ -417,4 +229,21 @@ class _SinscrireState extends State<Sinscrire> {
       )),
     );
   }
+}
+
+Future<void> ResetPassword(email, context) async {
+  await FirebaseAuth.instance
+      .sendPasswordResetEmail(email: email)
+      .then((value) => {
+            Fluttertoast.showToast(
+                msg: "Email Envoyé :)",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0),
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Seconnecter()))
+          })
+      .catchError((error) => print("Failed To Send The message: $error"));
 }

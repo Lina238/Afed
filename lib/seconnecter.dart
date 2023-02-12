@@ -1,4 +1,5 @@
 import 'package:afed/mesobjetstrouves.dart';
+import 'package:afed/resetpass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
@@ -245,7 +246,7 @@ class _SeconnecterState extends State<Seconnecter> {
                                 style: SafeGoogleFont(
                                   'Poppins',
                                   fontSize: 13 * ffem,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w600,
                                   height: 1.372000034 * ffem / fem,
                                   letterSpacing: 0.78 * fem,
                                   color: Color(0xff000000),
@@ -254,7 +255,7 @@ class _SeconnecterState extends State<Seconnecter> {
                                   ..onTap = () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (context) => Sinscrire()));
+                                            builder: (context) => RestPass()));
                                   },
                               ),
                             ],
